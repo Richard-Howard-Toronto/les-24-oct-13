@@ -1,4 +1,4 @@
-hash =
+hash1 =
 { response: {
 status: "ok",
 userTier: "developer",
@@ -105,28 +105,35 @@ isHosted: false
 }
 
 
-p hash
-
-p hash.each { | key, value | puts "#{key} maps to #{value}"}
-
-newhash = {}
-
-hash.each do |key, value|
-  puts key
-  value.each do |k,v|
-    puts k
-    puts v
-  end
+hash1[:response][:results].each do |article|
+  article[:views] = 0
 end
 
 
-p hash.length
+def read_article(x)
+  article = x[:response][:results].sample
+  article[:views] += 1
+end
 
 
+def display_views(articles)
+  articles.each do |article|
+    puts "the title is #{article[:webTitle]} and it has #{article[:views]} views."
+  end
+
+end
 
 
-h = {'dog' => 'canine', 'cat' => 'feline', 'donkey' => 'asinine', 12 => 'dodecine'}
-puts h.length  # 4
-puts h['dog']  # 'canine'
-puts h
-puts h[12]
+20.times do
+read_article(hash1)
+end
+
+p hash1[:response][:results]
+
+display_views(hash1[:response][:results])
+
+
+# hash = { a: 1 }
+# hash[:b] = 2
+# hash[:c] = 3
+# puts hash # => {:a=>1, :b=>2, :c=>3}
